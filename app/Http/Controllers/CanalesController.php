@@ -59,8 +59,9 @@ class CanalesController extends Controller
 
     public function destroy(Canal $canales)
     {
-        $canales->delete();
+        $canales->is_active = false;
+        $canales->save();
 
-        return redirect()->route('canales.index')->with('message', 'Canal eliminado.');
+        return redirect()->route('canales.index')->with('message', 'Canal desactivado.');
     }
 }
