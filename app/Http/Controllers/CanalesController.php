@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CanalesController extends Controller
 {
-    public function index(): Response
+    public function index()
     {
         $canales = Canal::all();
         $usuarios = User::all();
