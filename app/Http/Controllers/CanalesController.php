@@ -16,7 +16,7 @@ class CanalesController extends Controller
     {
         $canales = Canal::all();
         $usuarios = User::all();
-        return Inertia::render('Canales/Index', [
+        return Inertia::render('Forum/canales', [
             'canales' => $canales,
             'usuarios' => $usuarios,
         ]);
