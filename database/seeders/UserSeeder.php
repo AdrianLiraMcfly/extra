@@ -30,5 +30,8 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('12345678')]
         ];
 
+        foreach ($user as $u) {
+            User::create($u);
+        }
     }
 }
