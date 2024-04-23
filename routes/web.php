@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/canales', [CanalesController::class, 'index'])->name('canales.index');
     Route::post('/canales', [CanalesController::class, 'store'])->name('canales.store');
     Route::get('/canales/{canales}/edit', [CanalesController::class, 'edit'])->name('canales.edit');
-    Route::patch('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update');
+    Route::put('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update');
     Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy');
 });
 

@@ -59,9 +59,15 @@ class CanalesController extends Controller
 
     public function destroy(Canal $canales)
     {
+        if($canales->is_active == false){
+            $canales->is_active = true;
+            $canales->save();
+            return to_route('canales.index')->with('message', 'Canal activado.');
+        }
+        else{
         $canales->is_active = false;
         $canales->save();
-
-        return redirect()->route('canales.index')->with('message', 'Canal desactivado.');
+        return to_route('canales.index')->with('message', 'Canal desactivado.');
+        }
     }
 }
