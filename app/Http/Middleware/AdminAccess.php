@@ -20,6 +20,5 @@ class AdminAccess
             return $next($request);
         }
         return redirect('/dashboard')->with('error', 'You are not allowed to access this page.');
-
     }
 }
