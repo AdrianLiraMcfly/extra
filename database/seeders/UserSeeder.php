@@ -18,15 +18,15 @@ class UserSeeder extends Seeder
             [
             'name'  => "Vielma",
             'email' => "vielma7220@gmail.com",
-            'rol_id'    =>  1,
-            'status'    => true,
+            'role_id'    =>  1,
+            'is_active'    => true,
             'password'  => Hash::make('12345678')
         ],
         [
             'name'  => "Adrian",
             'email' => "jorge.liralopez11@gmail.com",
-            'rol_id'    =>  1,
-            'status'    => true,
+            'role_id'    =>  1,
+            'is_active'    => true,
             'password'  => Hash::make('12345678')]
         ];
 
