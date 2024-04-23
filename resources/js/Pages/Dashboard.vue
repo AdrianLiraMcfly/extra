@@ -19,9 +19,26 @@ import { Head } from '@inertiajs/vue3';
                                 <h1>Canales</h1>
                                 <div class="card-body">
                                     <p>En esta sección podrás ver los canales de comunicación que tienes disponibles.</p>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="canal in canales" :key="canal.id">
+                                                <td>{{ canal.nombre }}</td>
+                                                <td>
+                                                    <ButtonModal boton="Editar Canal" id_Modal="modalEditarCanal" color="btn-warning" />
+                                                    <ButtonModal boton="Eliminar Canal" id_Modal="modalEliminarCanal" color="btn-danger" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="card-footer">
-                                    <ButtonModal boton="Crear Canal" id_Modal="modalCrearCanal" color="btn-primary" />
+                                    <ButtonModal boton="Crear Canal" id_Modal="modalCrearCanal" titulo="Añadir" color="btn-primary" />
                                 </div>
                         </div>
                     </div>
@@ -29,48 +46,39 @@ import { Head } from '@inertiajs/vue3';
             </div>
         </div>
     </div>
+    <Modal id="modalCrearCanal" titulo="Crear Canal">
+    <form @submit.prevent="crearCanal">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" v-model="form.nombre">
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Canal</button>
+    </form>
+</Modal>
+
+<Modal id="modalEditarCanal" titulo="Editar Canal">
+    <form @submit.prevent="editarCanal">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" v-model="editform.nombre">
+        </div>
+        <button type="submit" class="btn btn-warning">Editar Canal</button>
+    </form>
+</Modal>
+
+<Modal id="modalEliminarCanal" titulo="Eliminar Canal">
+    <form @submit.prevent="eliminarCanal">
+        <p>¿Estás seguro de que deseas eliminar este canal?</p>
+        <button type="submit" class="btn btn-danger">Eliminar Canal</button>
+    </form>
+</Modal>
     </AuthenticatedLayout>
-
-    <Modal id_modal="modalCrearCanal" titulo="Crear Canal">
-        <form action="">
-            <div class="form-group">
-                <label for="nombre">Nombre del Canal</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Canal">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Crear Canal</button>
-            </div>
-        </form>
-    </Modal>
-
-    <Modal id_modal="modalEditarCanal" titulo="Editar Canal">
-        <form action="">
-            <div class="form-group">
-                <label for="nombre">Nombre del Canal</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Canal">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Editar Canal</button>
-            </div>
-        </form>
-    </Modal>
-
-    <Modal id_modal="modalEliminarCanal" titulo="Eliminar Canal">
-        <form action="">
-            <div class="form-group">
-                <label for="nombre">Nombre del Canal</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Canal">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Eliminar Canal</button>
-            </div>
-        </form>
-    </Modal>
 </template>
 
 <script >
 import ButtonModal from '@/Components/ButtonModal.vue';
 import Modal from '@/Components/Modal.vue';
+import { router } from '@inertiajs/vue3';
 
 export default {
 components: {
@@ -80,15 +88,34 @@ components: {
 props: {
     canales: Array
 },
+data(){
+    return{
+        form: {
+            nombre: ''
+        },
+        editform: {
+            nombre: ''
+        }
+    }
+},
 methods: {
     crearCanal() {
-        console.log('Crear Canal');
+        router.post(route('canales.store'), this.form)
+        this.form = {
+            nombre: ''
+        }
     },
     editarCanal() {
-        console.log('Editar Canal');
+        router.put(route('canales.update', this.editform.id), this.editform)
+        this.editform = {
+            nombre: ''
+        }
     },
     eliminarCanal() {
-        console.log('Eliminar Canal');
+        router.delete(route('canales.destroy', this.editform.id))
+        this.editform = {
+            nombre: ''
+        }
     }
 }
 }

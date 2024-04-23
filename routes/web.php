@@ -33,6 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/canales', [CanalesController::class, 'index'])->name('canales.index');
+    Route::get('/canales/create', [CanalesController::class, 'create'])->name('canales.create');
+    Route::post('/canales', [CanalesController::class, 'store'])->name('canales.store');
+    Route::get('/canales/{canales}/edit', [CanalesController::class, 'edit'])->name('canales.edit');
+    Route::patch('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update');
+    Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy');
 });
 
 require __DIR__.'/auth.php';
