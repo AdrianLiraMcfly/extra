@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('canales', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion')->nullable();    
+            $table->string('nombre');  
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');      
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->boolean('is_active')->default(true);     
             $table->timestamps();
         });
     }

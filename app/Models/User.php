@@ -47,4 +47,19 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function canales()
+    {
+        return $this->hasMany(Canal::class);
+    }
+
+    public function temas()
+    {
+        return $this->hasMany(Tema::class);
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }
