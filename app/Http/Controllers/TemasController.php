@@ -11,15 +11,17 @@ use Inertia\Inertia;
 class TemasController extends Controller
 {
 
+    //lo deje asi por que asi se muestra los temas de un canal especifico, ya que con el show tu vas a mandar tu id en el boton de ver
     public function show(Canal $canal)
     {
         $temas = $canal->temas()->with('user')->get();
-        return Inertia::render('Canal/Show', [
+        return Inertia::render('Forum/temas', [
             'canal' => $canal,
             'temas' => $temas,
         ]);
     }
 
+    // y pues aqui vas a poner el id del canal en el boton de crear
     public function store(Request $request, Canal $canal)
     {
         $request->validate([
