@@ -17,8 +17,8 @@
                                     <tr v-for="canal in canales" :key="canal.id">
                                         <td>{{ canal.nombre }}</td>
                                         <td>
-                                            <button-modal id_modal="modalEditarCanal" class="btn btn-warning">Editar</button-modal>
-                                            <button-modal id_modal="modalEliminarCanal" class="btn btn-danger">Eliminar</button-modal>
+                                            <button-modal id_modal="modalEditarCanal" class="btn btn-warning"></button-modal>
+                                            <button-modal id_modal="modalEliminarCanal" class="btn btn-danger">E</button-modal>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,6 +85,9 @@ data() {
     }
 },
 methods: {
+    obtenerCanal(id) {
+        this.id = id
+    },
     crearCanal() {
         router.post(route('canales.store'), this.form)
     },
