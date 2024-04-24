@@ -33,7 +33,9 @@
                                         <td>
                                             <button-modal id_Modal="modalEditarCanal" class="btn btn-warning" boton="Editar" @click="editCanal(canal.id, canal.nombre)"></button-modal>
                                             <button-modal id_Modal="modalEliminarCanal" :class="canal.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="canal.is_active == 1 ? 'Desactivar' : 'Activar'" @click="obtenerCanal(canal.id)"></button-modal>
-                                            <button class="btn btn-success">Ver</button>
+                                           <!-- <Link :href="route('canales.show', canal.id)">
+                                            <button type="button" class="btn btn-success">Ver</button>
+                                            </Link> -->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -72,6 +74,7 @@
 <script>  
 import ButtonModal from '@/Components/ButtonModal.vue';
 import Modal from '@/Components/Modal.vue';
+//import { Link } from '@inertiajs/inertia-vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { router } from '@inertiajs/vue3';
 import axios from 'axios';
@@ -80,6 +83,7 @@ export default {
 components: {
     ButtonModal,
     Modal,
+    //Link,
     AuthenticatedLayout
 },
 props: {
