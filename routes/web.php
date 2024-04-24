@@ -62,6 +62,10 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::put('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'update'])->name('comentario.update')->where('comentario', '[0-9]+');
     Route::delete('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'destroy'])->name('comentario.destroy')->where('comentario', '[0-9]+');
     
+    
+    Route::get('/tema/{tema}/comentarios', [ComentariosController::class, 'getComentarios'])->name('tema.comentarios')->where('tema', '[0-9]+');
+
+
 });
 
 require __DIR__.'/auth.php';

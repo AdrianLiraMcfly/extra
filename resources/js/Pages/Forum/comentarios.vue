@@ -112,11 +112,25 @@ export default {
             },
             id: null,
             showAlert: true,
+            pollingInterval: null,
         }
     },
+    mounted() {
+        this.startPolling();
+    },
+    beforeUnmount() {
+        this.stopPolling();
+    },
     methods: {
-      
- editComentario(id, comentario) {
+        startPolling() {
+            this.pollingInterval = setInterval(() => {
+                this.$inertia.get(route('tema.comentarios', { tema: this.tema.id }));
+            }, 15000);
+        },
+        stopPolling() {
+            clearInterval(this.pollingInterval);
+        },
+        editComentario(id, comentario) {
             this.id = id;
             this.editform.comentario = comentario;
         },

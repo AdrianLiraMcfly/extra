@@ -55,4 +55,18 @@ class ComentariosController extends Controller
     $comentario->delete(); // Delete the comment instead of modifying its status
     return redirect()->route('tema.show', $tema)->with('message', 'Comentario eliminado.'); // Update the success message
 }
+
+public function getComentarios(int $tema)
+{
+    $tema = Tema::find($tema);
+    if ($tema == null) {
+        return redirect()->back()->withErrors(['error' => 'Tema no encontrado']);
+    }
+    $comentarios = $tema->comentarios()->with('user')->get();
+    return Inertia::render('Forum/comentarios', [
+        'tema' => $tema,
+        'comentarios' => $comentarios,
+    ]);
+}
+
 }
