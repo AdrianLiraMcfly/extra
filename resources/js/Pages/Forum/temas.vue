@@ -1,6 +1,6 @@
 <template>
     <AuthenticatedLayout>
-        <div v-if="$page.props.flash.message" class="relative p-6 mb-4 text-green-700 bg-green-100 border-0 rounded-lg shadow-lg dark:bg-green-200 dark:text-green-800" role="alert">
+        <div v-if="$page.props.flash.message || showAlert" class="relative p-6 mb-4 text-green-700 bg-green-100 border-0 rounded-lg shadow-lg dark:bg-green-200 dark:text-green-800" role="alert">
             <span class="inline-block mr-5 align-middle">
                 <i class="text-xl animate-bounce fas fa-bell"></i>
             </span>
@@ -62,9 +62,18 @@
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
             </form>
         </Modal>
+
         <Modal id_modal="modalEliminarTema" titulo="Eliminar Tema">
-            <p>¿Estás seguro de eliminar este tema?</p>
-            <button class="btn btn-danger" @click="eliminarTema" data-bs-dismiss="modal">Eliminar</button>
+            <div v-if="id !=null">
+                <div v-if="temas.find(tema => tema.id === id).is_active == 1">
+                    <p>¿Estas seguro de querer desactivar este tema?</p>
+                    <button class="btn btn-danger" @click="eliminarTema"  data-bs-dismiss="modal">Eliminar</button>
+                </div>
+                <div v-else>
+                    <p>¿Estas seguro de querer activar este tema?</p>
+                    <button class="btn btn-success" @click="eliminarTema" data-bs-dismiss="modal">Activar</button>
+                </div>
+            </div>
         </Modal>
     </AuthenticatedLayout>
 </template>
@@ -96,8 +105,6 @@ data() {
         },
         id: null,
         showAlert: false,
-        alertMessage: '',
-        alertClass: '',
     }
 },
 methods: {
@@ -110,8 +117,6 @@ methods: {
             titulo: '',
         }
         this.showAlert = true
-        this.alertMessage = 'Tema creado'
-        this.alertClass = 'alert-success'
         setTimeout(() => {
             this.showAlert = false
         }, 3000)
@@ -127,8 +132,6 @@ methods: {
             titulo: '',
         }
         this.showAlert = true
-        this.alertMessage = 'Tema editado'
-        this.alertClass = 'alert-success'
         setTimeout(() => {
             this.showAlert = false
         }, 3000)
@@ -136,15 +139,7 @@ methods: {
     },
     eliminarTema() {
         router.delete(route('tema.destroy', {canal: this.canal.id, tema: this.id}))
-        if(this.temas.find(tema => tema.id === this.id).is_active == 1) {
-            this.showAlert = true
-            this.alertMessage = 'Tema desactivado'
-            this.alertClass = 'alert-danger'
-        } else {
-            this.showAlert = true
-            this.alertMessage = 'Tema activado'
-            this.alertClass = 'alert-success'
-        }
+        this.showAlert = true
         setTimeout(() => {
             this.showAlert = false
         }, 3000)

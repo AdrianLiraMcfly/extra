@@ -66,11 +66,11 @@
             <div v-if="id != ''">
             <div v-if="users.find(user => user.id == id).is_active == 1">
                 <p>¿Estás seguro de desactivar este usuario?</p>
-                <button @click="deleteUser(id)" class="btn btn-danger" data-bs-dismiss="modal">Desactivar</button>
+                <button @click="deleteUser" class="btn btn-danger" data-bs-dismiss="modal">Desactivar</button>
             </div>
             <div v-else>
-            <p>¿Estás seguro de activar este usuario?</p>
-            <button @click="deleteUser(id)" class="btn btn-success" data-bs-dismiss="modal">Activar</button>
+                <p>¿Estás seguro de activar este usuario?</p>
+                <button @click="deleteUser" class="btn btn-success" data-bs-dismiss="modal">Activar</button>
             </div>
             </div>
         </Modal>
@@ -143,8 +143,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
             idUser(id) {
                 this.id = id
             },
-            deleteUser(id) {
-                router.delete(route('users.destroy', id))
+            deleteUser() {
+                router.delete(route('users.destroy', this.id))
                 this.showAlert = true
                 setTimeout(() => {
                     this.showAlert = false
