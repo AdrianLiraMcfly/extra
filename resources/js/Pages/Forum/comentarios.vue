@@ -112,24 +112,11 @@ export default {
             },
             id: null,
             showAlert: true,
-            localComentarios: [], // new local data property
         }
     },
-    mounted() {
-        this.fetchComentarios();
-        setInterval(this.fetchComentarios, 15000); 
-    },
     methods: {
-        fetchComentarios() {
-            axios.get(`/tema/show/${this.tema.id}`)
-                .then(response => {
-                    this.localComentarios = response.data; // update localComentarios
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-        editComentario(id, comentario) {
+      
+ editComentario(id, comentario) {
             this.id = id;
             this.editform.comentario = comentario;
         },
