@@ -48,16 +48,8 @@ class ComentariosController extends Controller
     }
 
     public function destroy(Tema $tema, Comentario $comentario)
-    {
-        if($comentario->is_active == true){
-            $comentario->is_active = false;
-            $comentario->save();
-            return redirect()->route('tema.show', $tema)->with('message', 'Comentario desactivado.');
-        }
-        else{
-            $comentario->is_active = true;
-            $comentario->save();
-            return redirect()->route('tema.show', $tema)->with('message', 'Comentario activado.');
-        }
-    }
+{
+    $comentario->delete(); // Delete the comment instead of modifying its status
+    return redirect()->route('tema.show', $tema)->with('message', 'Comentario eliminado.'); // Update the success message
+}
 }
