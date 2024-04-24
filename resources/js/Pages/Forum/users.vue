@@ -79,14 +79,17 @@
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input type="text" class="form-control" v-model="form.name">
+                    <p v-if="errors.name" class="text-red-500 text-xs italic">{{ errors.name }}</p>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control"  v-model="form.email">
+                    <p v-if="errors.email" class="text-red-500 text-xs italic">{{ errors.email }}</p>
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <input type="password" class="form-control" v-model="form.password">
+                    <p v-if="errors.password" class="text-red-500 text-xs italic">{{ errors.password }}</p>
                 </div>
                 <div class="form-group">
                     <label for="role_id">Rol</label>
@@ -94,6 +97,7 @@
                         <option value="1">Administrador</option>
                         <option value="2">Usuario</option>
                     </select>
+                    <p v-if="errors.role_id" class="text-red-500 text-xs italic">{{ errors.role_id }}</p>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
             </form>
@@ -114,7 +118,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
             ButtonModal
         },
         props: {
-            users: Array
+            users: Array,
+            errors: {}
         },
         data() {
             return {
@@ -130,7 +135,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
                     role_id: ''
                 },
                 id: '',
-                showAlert: false
+                showAlert: false,
+                
             }
         },
         methods: {

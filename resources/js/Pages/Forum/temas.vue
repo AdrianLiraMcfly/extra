@@ -54,6 +54,7 @@
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Titulo</label>
                     <input type="text" class="form-control" id="titulo" v-model="form.titulo">
+                    <p v-if="errors.titulo" class="text-red-500 text-xs italic">{{ errors.titulo }}</p>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
             </form>
@@ -63,6 +64,7 @@
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Titulo</label>
                     <input type="text" class="form-control" id="titulo" v-model="editform.titulo">
+                    <p v-if="errors.titulo" class="text-red-500 text-xs italic">{{ errors.titulo }}</p>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
             </form>
@@ -100,11 +102,12 @@ components: {
 props: {
     canal: Object,
     temas: Array,
+    errors: {}
 },
 data() {
     return {
         form: {
-            titulo: '',
+            titulo: '',	 
         },
         editform: {
             titulo: '',
