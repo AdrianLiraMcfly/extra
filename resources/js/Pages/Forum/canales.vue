@@ -108,8 +108,6 @@ data() {
         },
         id: null,
         showAlert: false,
-        alertMessage: '',
-        alertClass: '',
     }
 },
 methods: {
