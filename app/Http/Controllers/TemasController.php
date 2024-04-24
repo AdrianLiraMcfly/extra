@@ -34,7 +34,7 @@ class TemasController extends Controller
         $tema->canal_id = $canal->id;
         $tema->save();
 
-        return redirect()->route('canal.show', $canal)->with('message', 'Tema creado.');
+        return redirect()->route('canales.show', $canal)->with('message', 'Tema creado.');
     }
 
     public function update(Request $request, Canal $canal, Tema $tema)

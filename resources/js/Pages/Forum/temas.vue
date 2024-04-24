@@ -16,10 +16,66 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">Temas del Canal: {{ canal.nombre }}</div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Titulo</th>
+                                            <th>Estado</th>
+                                            <th>Usuario</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="tema in temas" :key="tema.id">
+                                            <td>{{ tema.titulo }}</td>
+                                            <td>{{ tema.is_active == 1 ? 'Activo' : 'Inactivo' }}</td>
+                                            <td>{{ tema.user.name }}</td>
+                                            <td>
+                                                <button-modal id_Modal="modalEditarTema" class="btn btn-warning" boton="Editar" @click="editTema(tema.id, tema.titulo)"></button-modal>
+                                                <button-modal id_Modal="modalEliminarTema" :class="tema.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="tema.is_active == 1 ? 'Desactivar' : 'Activar'" @click="idTema(tema.id)"></button-modal>
+                                                <button-modal id_Modal="modalActivarTema" class="btn btn-success" boton="Ver"></button-modal>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button-modal id_Modal="modalCrearTema" class="btn btn-primary" boton="Crear Tema"></button-modal>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
+
+            <Modal id_modal="modalCrearTema" titulo="Crear Tema">
+                <form @submit.prevent="createTema">
+                    <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" v-model="form.titulo">
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
+                </form>
+            </Modal>
+            <Modal id_modal="modalEditarTema" titulo="Editar Tema">
+                <form @submit.prevent="editTema">
+                    <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" v-model="form.titulo">
+                    </div>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
+                </form>
+            </Modal>
+            <Modal id_modal="modalEliminarTema" titulo="Eliminar Tema">
+                <div v-if="id != ''">
+                    <div v-if="temas.find(tema => tema.id == id).is_active == 1">
+                        <p>¿Estás seguro de eliminar el tema?</p>
+                        <button type="button" class="btn btn-danger" @click="deleteTema(id)">Eliminar</button>
+                    </div>
+                    <div v-else>
+                        <p>¿Estás seguro de activar el tema?</p>
+                        <button type="button" class="btn btn-success" @click="activeTema(id)">Activar</button>
+                    </div>
+                </div>
+            </Modal>
         </AuthenticatedLayout>
     </template>
     
@@ -45,8 +101,29 @@
             form: {
                 titulo: '',
             },
+            editform: {
+                titulo: '',
+            },
+            id: '',
         }
     },
- 
+    methods: {
+        createTema() {
+            router.post(route('tema.store', this.canal.id), this.form)
+            this.form.titulo = ''
+        },
+        editTema(id, titulo) {
+            this.form.titulo = titulo
+            router.put(route('tema.update', this.canal.id, id), this.form)
+            this.form.titulo = ''
+        },
+        idTema(id) {
+            this.id = id
+        },
+        deleteTema(id) {
+            router.delete(route('tema.destroy',  this.canal.id, id))
+            this.id = ''
+        },
+        }
     }
     </script>

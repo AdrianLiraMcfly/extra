@@ -155,6 +155,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
                 this.form.name = ''
                 this.form.email = ''
                 this.form.password = ''
+                this.form.role_id = ''
                 this.showAlert = true
                 setTimeout(() => {
                     this.showAlert = false
