@@ -37,17 +37,18 @@ class TemasController extends Controller
         return redirect()->route('canales.show', $canal)->with('message', 'Tema creado.');
     }
 
-    public function update(Request $request, Canal $canal, Tema $tema)
+    public function update(Request $request, Int $canal, Int $tema)
     {
         $request->validate([
             'titulo' => 'required',
         ]);
-
+        $canal = Canal::find($canal);
+        $tema = Tema::find($tema);
         $request->merge(['user_id' => auth()->user()->id]);
         $request->merge(['canal_id' => $canal->id]);
         $tema->update($request->all());
 
-        return redirect()->route('canal.show', $canal)->with('message', 'Tema actualizado.');
+        return redirect()->route('canales.show', $canal)->with('message', 'Tema actualizado.');
     }
 
 
@@ -56,7 +57,7 @@ class TemasController extends Controller
         if($tema->is_active == true){
             $tema->is_active = false;
             $tema->save();
-            return redirect()->route('canal.show', $canal)->with('message', 'Tema desactivado.');
+            return redirect()->route('canales.show', $canal)->with('message', 'Tema desactivado.');
         }
         else{
             $tema->is_active = true;
