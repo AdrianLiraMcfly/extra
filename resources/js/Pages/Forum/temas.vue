@@ -34,6 +34,9 @@
                                         <td>
                                             <button-modal id_Modal="modalEditarTema" class="btn btn-warning" boton="Editar" @click="editTema(tema.id, tema.titulo)"></button-modal>
                                             <button-modal id_Modal="modalEliminarTema" :class="tema.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="tema.is_active == 1 ? 'Desactivar' : 'Activar'" @click="obtenerTema(tema.id)"></button-modal>
+                                            <Link :href="route('tema.show', tema.id)">
+                                            <button type="button" class="btn btn-success">Ver</button>
+                                            </Link> 
                                         </td>
                                     </tr>
                                 </tbody>
@@ -83,12 +86,14 @@ import ButtonModal from '@/Components/ButtonModal.vue';
 import Modal from '@/Components/Modal.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { router } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
 
 export default {
 components: {
     ButtonModal,
     Modal,
+    Link,
     AuthenticatedLayout
 },
 props: {

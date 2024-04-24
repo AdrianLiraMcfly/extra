@@ -19,6 +19,6 @@ class AdminAccess
         if (auth()->user()->role_id == 1) {
             return $next($request);
         }
-        return redirect('/dashboard')->with('error', 'You are not allowed to access this page.');
+        return redirect('/dashboard')->with('message', 'You are not allowed to access this page.');
     }
 }
