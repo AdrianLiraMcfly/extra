@@ -32,10 +32,10 @@
                                         <td>{{ tema.user.name }}</td>
                                         <td>{{ tema.is_active == 1 ? 'Activo' : 'Inactivo' }}</td>
                                         <td>
-                                            <button-modal id_Modal="modalEditarTema" class="btn btn-warning" boton="Editar" @click="editTema(tema.id, tema.titulo)"></button-modal>
-                                            <button-modal id_Modal="modalEliminarTema" :class="tema.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="tema.is_active == 1 ? 'Desactivar' : 'Activar'" @click="obtenerTema(tema.id)"></button-modal>
+                                            <button-modal v-if="$page.props.auth.user.role_id == '1'" id_Modal="modalEditarTema" class="btn btn-warning" boton="Editar" @click="editTema(tema.id, tema.titulo)"></button-modal>
+                                            <button-modal v-if="$page.props.auth.user.role_id == '1'" id_Modal="modalEliminarTema" :class="tema.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="tema.is_active == 1 ? 'Desactivar' : 'Activar'" @click="obtenerTema(tema.id)"></button-modal>
                                             <Link :href="route('tema.show', tema.id)">
-                                            <button type="button" class="btn btn-success">Ver</button>
+                                            <button type="button" class="btn btn-success" >Ver</button>
                                             </Link> 
                                         </td>
                                     </tr>

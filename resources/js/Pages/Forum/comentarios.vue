@@ -30,8 +30,8 @@
                                         <td>{{ comentario.comentario }}</td>
                                         <td>{{ comentario.user.name }}</td>
                                         <td>
-                                            <button-modal id_Modal="modalEditarComentario" class="btn btn-warning" boton="Editar" @click="editComentario(comentario.id, comentario.comentario)"></button-modal>
-                                            <button-modal id_Modal="modalEliminarComentario" class="btn btn-danger" boton="Eliminar" @click="obtenerComentario(comentario.id)"></button-modal>
+                                            <button-modal v-if="$page.props.auth.user.id == comentario.user.id" id_Modal="modalEditarComentario" class="btn btn-warning" boton="Editar" @click="editComentario(comentario.id, comentario.comentario)"></button-modal>
+                                            <button-modal v-if="$page.props.auth.user.id == comentario.user.id" id_Modal="modalEliminarComentario" class="btn btn-danger" boton="Eliminar" @click="obtenerComentario(comentario.id)"></button-modal>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -33,16 +33,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'], ['is_active'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/canales', [CanalesController::class, 'index'])->name('canales.index');
-    Route::post('/canales', [CanalesController::class, 'store'])->name('canales.store');
-    Route::get('/canales/{canales}/edit', [CanalesController::class, 'edit'])->name('canales.edit');
-    Route::put('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update')->where('canales', '[0-9]+');
-    Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy')->where('canales', '[0-9]+');
 
     Route::middleware(['isadmin'])->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -51,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update')->where('user', '[0-9]+');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->where('user', '[0-9]+');
     });
+        
+    Route::get('/canales', [CanalesController::class, 'index'])->name('canales.index');
+    Route::post('/canales', [CanalesController::class, 'store'])->name('canales.store');
+    Route::get('/canales/{canales}/edit', [CanalesController::class, 'edit'])->name('canales.edit');
+    Route::put('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update')->where('canales', '[0-9]+');
+    Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy')->where('canales', '[0-9]+');
 
     Route::get('/canales/show/{canal}', [TemasController::class, 'show'])->name('canales.show')->where('canal', '[0-9]+');
     Route::post('/canales/{canal}/tema', [TemasController::class, 'store'])->name('tema.store')->where('canal', '[0-9]+');
@@ -61,7 +61,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tema/{tema}/comentario', [ComentariosController::class, 'store'])->name('comentario.store')->where('tema', '[0-9]+');
     Route::put('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'update'])->name('comentario.update')->where('comentario', '[0-9]+');
     Route::delete('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'destroy'])->name('comentario.destroy')->where('comentario', '[0-9]+');
-
     
 });
 

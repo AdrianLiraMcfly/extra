@@ -6,8 +6,10 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { data } from 'autoprefixer';
 
 const showingNavigationDropdown = ref(false);
+
 </script>
 
 <template>
@@ -33,12 +35,13 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                             </div>
-
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            
+                            <div v-if="$page.props.auth.user.role_id == '1'" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('users.index')" :active="route().current('users.index')">
                                     Usuarios
                                 </NavLink>
                             </div>
+                
                             
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('canales.index')" :active="route().current('canales.index')">

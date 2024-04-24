@@ -75,4 +75,9 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('message', 'User deactivated.');
         }
     }
+
+    public function getUser($id){
+        $user = User::find($id);
+        return response()->json($user);
+    }
 }
