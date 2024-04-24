@@ -12,8 +12,9 @@ class TemasController extends Controller
 {
 
     //lo deje asi por que asi se muestra los temas de un canal especifico, ya que con el show tu vas a mandar tu id en el boton de ver
-    public function show(Canal $canal)
+    public function show(int $canal)
     {
+        $canal = Canal::find($canal);
         $temas = $canal->temas()->with('user')->get();
         return Inertia::render('Forum/temas', [
             'canal' => $canal,

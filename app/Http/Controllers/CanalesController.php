@@ -15,10 +15,8 @@ class CanalesController extends Controller
     public function index()
     {
         $canales = Canal::all();
-        $usuarios = User::all();
         return Inertia::render('Forum/canales', [
             'canales' => $canales,
-            'usuarios' => $usuarios,
         ]);
     }
 
