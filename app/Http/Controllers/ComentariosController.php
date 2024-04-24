@@ -13,6 +13,9 @@ class ComentariosController extends Controller
     public function show(int $tema)
     {
         $tema = Tema::find($tema);
+        if($tema == null){
+            return redirect()->route('canales.index')->with('message', 'Tema no encontrado.');
+        }
         $comentarios = $tema->comentarios()->with('user')->get();
         return Inertia::render('Forum/comentarios', [
             'tema' => $tema,

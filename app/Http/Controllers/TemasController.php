@@ -15,6 +15,9 @@ class TemasController extends Controller
     public function show(int $canal)
     {
         $canal = Canal::find($canal);
+        if($canal == null){
+            return redirect()->route('canales.index')->with('message', 'Canal no encontrado.');
+        }
         $temas = $canal->temas()->with('user')->get();
         return Inertia::render('Forum/temas', [
             'canal' => $canal,

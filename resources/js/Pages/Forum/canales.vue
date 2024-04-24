@@ -112,6 +112,14 @@ data() {
         showAlert: false,
     }
 },
+onMounted() {
+    if($page.props.flash.message) {
+        this.showAlert = true
+        setTimeout(() => {
+            this.showAlert = false
+        }, 3000)
+    }
+},
 methods: {
     obtenerCanal(id) {
         this.id = id
