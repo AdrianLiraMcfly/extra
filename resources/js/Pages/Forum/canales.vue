@@ -63,8 +63,16 @@
             </form>
         </Modal>
         <Modal id_modal="modalEliminarCanal" titulo="Eliminar Canal">
-            <p>¿Estás seguro de eliminar este canal?</p>
+            <div v-if="id != null">
+            <div v-if="canales.find(canal => canal.id === id).is_active == 1">
+                <p>¿Estás seguro de desactivar este canal?</p>
             <button class="btn btn-danger" @click="eliminarCanal" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+            <div v-else>
+                <p>¿Estás seguro de activar este canal?</p>
+                <button class="btn btn-success" @click="eliminarCanal" data-bs-dismiss="modal">Activar</button>
+            </div>
+            </div>
         </Modal>
     </AuthenticatedLayout>
 </template>

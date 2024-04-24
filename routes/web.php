@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CanalesController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/canales/{canales}/edit', [CanalesController::class, 'edit'])->name('canales.edit');
     Route::put('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update');
     Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';
