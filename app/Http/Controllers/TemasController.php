@@ -64,5 +64,6 @@ class TemasController extends Controller
             $tema->save();
             return redirect()->route('canales.show', $canal)->with('message', 'Tema activado.');
         }
+        
 }
 }

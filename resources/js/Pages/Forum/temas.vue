@@ -1,6 +1,6 @@
 <template>
     <AuthenticatedLayout>
-        <div v-if="$page.props.flash.message || showAlert" class="relative p-6 mb-4 text-green-700 bg-green-100 border-0 rounded-lg shadow-lg dark:bg-green-200 dark:text-green-800" role="alert">
+        <div v-if="$page.props.flash.message && showAlert" class="relative p-6 mb-4 text-green-700 bg-green-100 border-0 rounded-lg shadow-lg dark:bg-green-200 dark:text-green-800" role="alert">
             <span class="inline-block mr-5 align-middle">
                 <i class="text-xl animate-bounce fas fa-bell"></i>
             </span>
@@ -49,6 +49,9 @@
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Titulo</label>
                     <input type="text" class="form-control" id="titulo" v-model="form.titulo">
+                    <div v-if="errors.titulo" class="alert alert-danger" role="alert">
+                        {{ errors.titulo }}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
             </form>
@@ -58,6 +61,9 @@
                 <div class="mb-3">
                     <label for="titulo" class="form-label">Titulo</label>
                     <input type="text" class="form-control" id="titulo" v-model="editform.titulo">
+                    <div v-if="errors.titulo" class="alert alert-danger" role="alert">
+                        {{ errors.titulo }}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
             </form>

@@ -51,6 +51,9 @@
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" v-model="form.nombre">
+                    <div v-if="errors.nombre" class="text-danger">
+                        {{ errors.nombre }}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Crear</button>
             </form>
@@ -60,6 +63,9 @@
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" v-model="editform.nombre">
+                    <div v-if="errors.nombre" class="text-danger">
+                        {{ errors.nombre }}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Editar</button>
             </form>
