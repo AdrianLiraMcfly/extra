@@ -33,6 +33,12 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                             </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('users.index')" :active="route().current('users.index')">
+                                    Usuarios
+                                </NavLink>
+                            </div>
                             
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('canales.index')" :active="route().current('canales.index')">
