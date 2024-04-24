@@ -28,21 +28,21 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="canal in canales" :key="canal.id">
+                                        <template v-if="canal.is_active == 1 || $page.props.auth.user.role_id == '1'">
                                         <td>{{ canal.nombre }}</td>
                                         <td>{{ canal.is_active == 1 ? 'Activo' : 'Inactivo' }}</td>
                                         <td>
-                                            
                                             <button-modal v-if="$page.props.auth.user.role_id == '1'" id_Modal="modalEditarCanal" class="btn btn-warning" boton="Editar" @click="editCanal(canal.id, canal.nombre)"></button-modal>
                                             <button-modal v-if="$page.props.auth.user.role_id == '1'" id_Modal="modalEliminarCanal" :class="canal.is_active == 1 ? 'btn btn-danger' : 'btn btn-success'" :boton="canal.is_active == 1 ? 'Desactivar' : 'Activar'" @click="obtenerCanal(canal.id)"></button-modal>
-                                            
                                            <Link :href="route('canales.show', canal.id)">
                                             <button type="button" class="btn btn-success">Ver</button>
                                             </Link> 
                                         </td>
+                                    </template>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button-modal id_Modal="modalCrearCanal" class="btn btn-primary" boton="Crear Canal"></button-modal>
+                            <button-modal v-if="$page.props.auth.user.role_id == '1'" id_Modal="modalCrearCanal" class="btn btn-primary" boton="Crear Canal"></button-modal>
                         </div>
                     </div>
                 </div>

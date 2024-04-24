@@ -28,6 +28,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="tema in temas" :key="tema.id">
+                                        <template v-if="tema.is_active == 1 || $page.props.auth.user.role_id == '1'">
                                         <td>{{ tema.titulo }}</td>
                                         <td>{{ tema.user.name }}</td>
                                         <td>{{ tema.is_active == 1 ? 'Activo' : 'Inactivo' }}</td>
@@ -38,6 +39,7 @@
                                             <button type="button" class="btn btn-success" >Ver</button>
                                             </Link> 
                                         </td>
+                                        </template>
                                     </tr>
                                 </tbody>
                             </table>
