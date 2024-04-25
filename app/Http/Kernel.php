@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'is_active' => \App\Http\Middleware\IsActiveMiddleware::class,
         'canalIsactive' => \App\Http\Middleware\canalIsactive::class,
         'temasIsactive' => \App\Http\Middleware\temasIsactive::class,
+        'codenull' => \App\Http\Middleware\Codenull::class,
     ];
 }
