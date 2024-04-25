@@ -8,6 +8,8 @@ use App\Http\Controllers\CanalesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TemasController;
 use App\Http\Controllers\ComentariosController;
+use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,12 +30,18 @@ Route::get('/', function () {
     ]);
 });
 
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware(['auth', 'is_active'])->group(function () {
+    Route::get('/verify', [VerificationController::class, 'showVerificationForm'])->name('verification.show');
+    Route::post('/verify', [VerificationController::class, 'verify'])->name('verification');
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

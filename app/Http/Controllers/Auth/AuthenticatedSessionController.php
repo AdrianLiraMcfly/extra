@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\VerificationCodeMail;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,15 +31,24 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+    
+        // Generamos un código de verificación de 6 dígitos
+        $verificationCode = rand(100000, 999999);
+    
+        // Actualizamos el usuario con el nuevo código de verificación
+        $user = Auth::user();
+        $user->verification_code = $verificationCode;
+        $user->save();
+    
+        // Enviamos el correo electrónico de verificación
+        Mail::to($user->email)->send(new VerificationCodeMail($verificationCode));
+    
+        // Redirigimos a la ruta de verificación en lugar de a HOME
+        return redirect()->route('verification.show');
     }
-
     /**
      * Destroy an authenticated session.
      */
