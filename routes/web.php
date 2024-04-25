@@ -63,8 +63,8 @@ Route::middleware(['auth', 'is_active'])->group(function () {
     Route::delete('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'destroy'])->name('comentario.destroy')->where('comentario', '[0-9]+');
     
     
-    Route::get('/tema/{tema}/comentarios', [ComentariosController::class, 'getComentarios'])->name('tema.comentarios')->where('tema', '[0-9]+');
-
+    //Route::get('/tema/{tema}/comentarios', [ComentariosController::class, 'getComentarios'])->name('tema.comentarios')->where('tema', '[0-9]+');
+    Route::get('/tema/{tema}/comentarios', [ComentariosController::class, 'getComentariosaxios'])->name('tema.comentarios');
 
 });
 

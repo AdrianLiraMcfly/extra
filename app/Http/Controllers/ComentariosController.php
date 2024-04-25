@@ -69,4 +69,13 @@ public function getComentarios(int $tema)
     ]);
 }
 
+public function getComentariosaxios(Request $request, int $tema)
+{
+    $tema = Tema::find($tema);
+    if ($tema == null) {
+        return response()->json(['error' => 'Tema no encontrado'], 404);
+    }
+    $comentarios = $tema->comentarios()->with('user')->get();
+    return response()->json($comentarios);
+}
 }

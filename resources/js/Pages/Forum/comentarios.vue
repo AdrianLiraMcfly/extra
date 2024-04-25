@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="comentario in comentarios" :key="comentario.id">
+                                    <tr v-for="comentario in comentariosActualizados" :key="comentario.id">
                                         <td>{{ comentario.comentario }}</td>
                                         <td>{{ comentario.user.name }}</td>
                                         <td>
@@ -85,7 +85,7 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Modal from '@/Components/Modal.vue';
-import { Axios } from 'axios';
+import axios  from 'axios';
 import ButtonModal from '@/Components/ButtonModal.vue';
 import { router } from '@inertiajs/vue3';
 
@@ -113,9 +113,11 @@ export default {
             id: null,
             showAlert: true,
             pollingInterval: null,
+            comentariosActualizados: [],
         }
     },
     mounted() {
+        this.comentariosActualizados = this.comentarios;
         this.startPolling();
     },
     beforeUnmount() {
@@ -123,10 +125,17 @@ export default {
     },
     methods: {
         startPolling() {
-            this.pollingInterval = setInterval(() => {
-                this.$inertia.get(route('tema.comentarios', { tema: this.tema.id }));
-            }, 15000);
-        },
+        this.pollingInterval = setInterval(() => {
+            axios.get(route('tema.comentarios', { tema: this.tema.id }))
+                .then(response => {
+                    this.comentariosActualizados = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            console.log('Polling');
+        }, 5000);
+    },
         stopPolling() {
             clearInterval(this.pollingInterval);
         },
