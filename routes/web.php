@@ -36,10 +36,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::middleware(['auth', 'is_active'])->group(function () {
-    Route::get('/verify', [VerificationController::class, 'showVerificationForm'])->name('verification.show');
+Route::get('/verify', [VerificationController::class, 'showVerificationForm'])->name('verification.show');
     Route::post('/verify', [VerificationController::class, 'verify'])->name('verification');
+Route::middleware(['auth','codenull', 'is_active'])->group(function () {
+    
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

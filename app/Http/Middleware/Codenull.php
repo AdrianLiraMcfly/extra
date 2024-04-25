@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,12 @@ class Codenull
      */
     public function handle(Request $request, Closure $next): Response
     {
+       
+        if(auth()->user()->verification_code != null)
+        {
+            return redirect()->route('verification.show');
+        }
+      
         return $next($request);
     }
 }
