@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tema extends Model
 {
     use HasFactory;
-    protected $fillable = ['titulo', 'canal_id', 'user_id'];
+    protected $fillable = ['titulo', 'canal_id', 'user_id', 'is_active'];
     protected $table = 'temas';
 
     public function canal()

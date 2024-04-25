@@ -53,6 +53,8 @@ Route::middleware(['auth','codenull', 'is_active'])->group(function () {
         Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update')->where('user', '[0-9]+');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->where('user', '[0-9]+');
     });
+
+
         
     Route::get('/canales', [CanalesController::class, 'index'])->name('canales.index');
     Route::post('/canales', [CanalesController::class, 'store'])->name('canales.store');
@@ -60,12 +62,17 @@ Route::middleware(['auth','codenull', 'is_active'])->group(function () {
     Route::put('/canales/{canales}', [CanalesController::class, 'update'])->name('canales.update')->where('canales', '[0-9]+');
     Route::delete('/canales/{canales}', [CanalesController::class, 'destroy'])->name('canales.destroy')->where('canales', '[0-9]+');
 
-    Route::get('/canales/show/{canal}', [TemasController::class, 'show'])->name('canales.show')->where('canal', '[0-9]+');
-    Route::post('/canales/{canal}/tema', [TemasController::class, 'store'])->name('tema.store')->where('canal', '[0-9]+');
+
+    Route::middleware(['canalIsactive'])->group(function () {
+        Route::get('/canales/show/{canal}', [TemasController::class, 'show'])->name('canales.show')->where('canal', '[0-9]+');
+    });
+    Route::post('/canales/tema/{canal}', [TemasController::class, 'store'])->name('tema.store')->where('canal', '[0-9]+');
+    
     Route::put('/canales/{canal}/tema/{tema}', [TemasController::class, 'update'])->name('tema.update')->where('tema', '[0-9]+');
     Route::delete('/canales/{canal}/tema/{tema}', [TemasController::class, 'destroy'])->name('tema.destroy')->where('tema', '[0-9]+');
 
-    Route::get('/tema/show/{tema}', [ComentariosController::class, 'show'])->name('tema.show')->where('tema', '[0-9]+');
+    
+    Route::get('/tema/show/{tema}', [ComentariosController::class, 'show'])->name('tema.show')->where('tema', '[0-9]+')->middleware('temasIsactive');
     Route::post('/tema/{tema}/comentario', [ComentariosController::class, 'store'])->name('comentario.store')->where('tema', '[0-9]+');
     Route::put('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'update'])->name('comentario.update')->where('comentario', '[0-9]+');
     Route::delete('/tema/{tema}/comentario/{comentario}', [ComentariosController::class, 'destroy'])->name('comentario.destroy')->where('comentario', '[0-9]+');

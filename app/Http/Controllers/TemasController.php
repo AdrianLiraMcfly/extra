@@ -19,6 +19,9 @@ class TemasController extends Controller
             return redirect()->route('canales.index')->with('message', 'Canal no encontrado.');
         }
         $temas = $canal->temas()->with('user')->get();
+        if($canal->is_active == false){
+            return redirect()->route('canales.index')->with('message', 'Canal desactivado.');
+        }
         return Inertia::render('Forum/temas', [
             'canal' => $canal,
             'temas' => $temas,
@@ -31,7 +34,9 @@ class TemasController extends Controller
         $request->validate([
             'titulo' => 'required',
         ]);
-
+        if($canal->is_active == false){
+            return redirect()->route('canales.show', $canal)->with('message', 'Canal desactivado.');
+        }   
         $tema = new Tema($request->all());
         $tema->user_id = auth()->user()->id;
         $tema->canal_id = $canal->id;
@@ -46,6 +51,9 @@ class TemasController extends Controller
             'titulo' => 'required',
         ]);
         $canal = Canal::find($canal);
+        if($canal->is_active == false){
+            return redirect()->route('canales.show', $canal)->with('message', 'Canal desactivado.');
+        } 
         $tema = Tema::find($tema);
         $request->merge(['user_id' => auth()->user()->id]);
         $request->merge(['canal_id' => $canal->id]);
@@ -57,6 +65,9 @@ class TemasController extends Controller
 
     public function destroy(Canal $canal, Tema $tema)
     {
+        if($canal->is_active == false){
+            return redirect()->route('canales.show', $canal)->with('message', 'Canal desactivado.');
+        }
         if($tema->is_active == true){
             $tema->is_active = false;
             $tema->save();
