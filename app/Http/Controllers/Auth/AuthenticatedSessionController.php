@@ -34,8 +34,7 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-    
-        // Generamos un código de verificación de 6 dígitos
+
         $verificationCode = rand(100000, 999999);
     
         // Actualizamos el usuario con el nuevo código de verificación
